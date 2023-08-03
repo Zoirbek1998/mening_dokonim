@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 import '../models/product.dart';
 import '../providers/products.dart';
-import '../widgets/product_item.dart';
+import 'items_product.dart';
 
 class ProductGrid extends StatefulWidget {
   final bool showFavorites;
@@ -55,33 +56,33 @@ class _ProductGridState extends State<ProductGrid> {
                   return ps.isNotEmpty
                       ? RefreshIndicator(
                           onRefresh: _refreshProducts,
-                          child: GridView.builder(
-                              padding: const EdgeInsets.all(20),
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 1,
-                                      childAspectRatio: 3 / 2,
-                                      mainAxisSpacing: 20,
-                                      crossAxisSpacing: 20),
+                          child: MasonryGridView.builder(
                               itemCount: ps.length,
-                              itemBuilder: (ctx, i) {
-                                return ChangeNotifierProvider<Product>.value(
-                                  value: ps[i],
-                                  child: const ProductItem(),
-                                );
-                              }),
-                        )
+                              gridDelegate:
+                                  const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2),
+                              itemBuilder: (context, index) =>
+                                  ChangeNotifierProvider<Product>.value(
+                                    value: ps[index],
+                                    child:const Padding(
+                                      padding:  EdgeInsets.all(8),
+                                      child: ProductItems(),
+                                    ),
+                                  ))
+                          )
                       : const Center(
-                          child: Text('Mahsulot mavjud emas.'),
+                          child: Text('Product not available.'),
                         );
                 },
               );
             } else {
               return const Center(
-                child: Text("Xatolik sodir bo'ldi"),
+                child: Text("An error occurred"),
               );
             }
           }
         });
   }
 }
+
+

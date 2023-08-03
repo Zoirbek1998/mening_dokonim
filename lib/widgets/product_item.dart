@@ -24,9 +24,12 @@ class ProductItem extends StatelessWidget {
             Navigator.of(context).pushNamed(ProductDetailesScreen.routeName,
                 arguments: product.id);
           },
-          child: Image.network(
-            product.imageUrl,
-            fit: BoxFit.cover,
+          child: Hero(
+            tag: product.title,
+            child: Image.network(
+              product.imageUrl,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
         footer: GridTileBar(
@@ -88,10 +91,10 @@ class ProductItem extends StatelessWidget {
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: const Text("Savatchaga qo'shildi!"),
+                  content: const Text("Added to cart!"),
                   duration: const Duration(seconds: 2),
                   action: SnackBarAction(
-                      label: 'BEKOR QILISH',
+                      label: 'CANCELLATION',
                       onPressed: () {
                         cart.removeSingelItem(product.id, isCartButton: true);
                       }),

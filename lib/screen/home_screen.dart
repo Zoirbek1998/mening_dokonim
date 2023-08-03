@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Mening Do'konim"),
+        title: const Text("My Store"),
         actions: [
           PopupMenuButton(
             onSelected: (FilterOption filter) {
@@ -45,11 +45,11 @@ class _HomeScreenState extends State<HomeScreen> {
             itemBuilder: (ctx) {
               return const [
                 PopupMenuItem(
-                  child: const Text("Barchasi"),
+                  child: const Text("Everything"),
                   value: FilterOption.All,
                 ),
                 PopupMenuItem(
-                  child: const Text("Sevimlilar"),
+                  child: const Text("Favorites"),
                   value: FilterOption.Favorites,
                 ),
               ];

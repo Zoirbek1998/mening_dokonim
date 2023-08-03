@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -15,8 +16,13 @@ import '../screen/auth_screen.dart';
 import '../screen/edit_product_screen.dart';
 import '../screen/manager_product_screen.dart';
 import '../screen/splash_screen.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
 
@@ -49,7 +55,7 @@ class MyApp extends StatelessWidget {
         builder: (context, authData, child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'Meng Do\'kon',
+            title: 'My Store',
             theme: theme,
             home: authData.isAuth
                 ? const HomeScreen()

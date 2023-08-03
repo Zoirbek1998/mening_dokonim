@@ -21,7 +21,7 @@ class ManagerProductScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Sizning Maxsulotlaringiz"),
+        title: const Text("Your Products"),
         actions: [
           IconButton(
             onPressed: () =>
@@ -57,7 +57,7 @@ class ManagerProductScreen extends StatelessWidget {
               );
             } else {
               return const Center(
-                child: Text("Xatolik sodir bo'ldi..."),
+                child: Text("An error occurred..."),
               );
             }
           }),

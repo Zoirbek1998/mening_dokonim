@@ -69,13 +69,13 @@ class Products with ChangeNotifier {
         filterByUser ? 'orderBy="creatorId"&equalTo="$_userId"' : '';
 
     final url = Uri.parse(
-        'https://home-work-4b668-default-rtdb.firebaseio.com/product.json?auth=$_authToken&$filterString');
+        'https://chat-app-da9ee-default-rtdb.firebaseio.com/product.json?auth=$_authToken&$filterString');
 
     try {
       final response = await http.get(url);
       if (jsonDecode(response.body) != null) {
         final favoriteUrl = Uri.parse(
-            'https://home-work-4b668-default-rtdb.firebaseio.com/userFavorites/$_userId.json?auth=$_authToken');
+            'https://chat-app-da9ee-default-rtdb.firebaseio.com/userFavorites/$_userId.json?auth=$_authToken');
 
         final favoritesResponse = await http.get(favoriteUrl);
         final favoritesData = jsonDecode(favoritesResponse.body);
@@ -83,6 +83,10 @@ class Products with ChangeNotifier {
         final data = jsonDecode(response.body) as Map<String, dynamic>;
 
         data.forEach((productId, productData) {
+
+
+
+
           loadedProduct.add(Product(
             id: productId,
             title: productData["title"],
@@ -104,7 +108,7 @@ class Products with ChangeNotifier {
 
   Future<void> addProduct(Product product) async {
     final url = Uri.parse(
-        'https://home-work-4b668-default-rtdb.firebaseio.com/product.json?auth=$_authToken');
+        'https://chat-app-da9ee-default-rtdb.firebaseio.com/product.json?auth=$_authToken');
 
     try {
       final response = await http.post(
@@ -144,7 +148,7 @@ class Products with ChangeNotifier {
 
     if (productIndex >= 0) {
       final url = Uri.parse(
-          'https://home-work-4b668-default-rtdb.firebaseio.com/product/${upadateProduct.id}.json?auth=$_authToken');
+          'https://chat-app-da9ee-default-rtdb.firebaseio.com/product/${upadateProduct.id}.json?auth=$_authToken');
 
       try {
         await http.patch(
@@ -168,7 +172,7 @@ class Products with ChangeNotifier {
 
   Future<void> deleteProduct(String id) async {
     final url = Uri.parse(
-        'https://home-work-4b668-default-rtdb.firebaseio.com/product/$id.json?auth=$_authToken');
+        'https://chat-app-da9ee-default-rtdb.firebaseio.com/product/$id.json?auth=$_authToken');
 
     try {
       var deletingProduct = _list.firstWhere((product) => product.id == id);
@@ -179,7 +183,7 @@ class Products with ChangeNotifier {
       if (response.statusCode >= 400) {
         _list.insert(productIndex, deletingProduct);
         notifyListeners();
-        throw HttpException("Kechirasiz o'chirishda hatolik");
+        throw HttpException("Sorry, there was an error deleting");
       }
     } catch (e) {
       rethrow;

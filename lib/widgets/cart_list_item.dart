@@ -23,19 +23,19 @@ class CartListItem extends StatelessWidget {
         context: context,
         builder: (ctx) {
           return AlertDialog(
-            title: const Text("Ishonchingiz komilmi?"),
-            content: const Text("Savatchadan bu maxsulot o'chmoqda!"),
+            title: const Text("Are you sure?"),
+            content: const Text("This product is being removed from the cart!"),
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: const Text("BEKOR QILISH"),
+                child: const Text("CANCELLATION"),
               ),
               ElevatedButton(
                 onPressed: () {
                   removeItem();
                   Navigator.of(context).pop();
                 },
-                child: const Text("O'CHIRISH"),
+                child: const Text("DELETE"),
                 style: ElevatedButton.styleFrom(
                     primary: Theme.of(context).errorColor),
               ),
@@ -56,7 +56,7 @@ class CartListItem extends StatelessWidget {
           ElevatedButton(
             onPressed: () => _notifyUserAboutDelete(
                 context, () => cart.removeItem(productId)),
-            child: const Text('O\'CHIRISH'),
+            child: const Text('DELETE'),
             style: ElevatedButton.styleFrom(
               primary: Theme.of(context).errorColor,
               padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 30),
@@ -71,7 +71,7 @@ class CartListItem extends StatelessWidget {
             backgroundImage: NetworkImage(imageUrl),
           ),
           title: Text(title),
-          subtitle: Text('Umumiy: \$${(price * quantity).toStringAsFixed(2)}'),
+          subtitle: Text('General: \$${(price * quantity).toStringAsFixed(2)}'),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [

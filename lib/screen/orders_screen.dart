@@ -33,7 +33,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Buyurtmalar"),
+        title: const Text("Orders"),
       ),
       drawer: const AppDriwer(),
       body: FutureBuilder(
@@ -48,7 +48,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
               return Consumer<Orders>(
                 builder: (context, orders, child) => orders.items.isEmpty
                     ? const Center(
-                        child: Text("Byurtmalar mavjud emas."),
+                        child: Text("There are no refunds."),
                       )
                     : ListView.builder(
                         itemCount: orders.items.length,
@@ -64,7 +64,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
               );
             } else {
               return const Center(
-                child: Text("Xatolik yuz berdi."),
+                child: Text("An error occurred."),
               );
             }
           }

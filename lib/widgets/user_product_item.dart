@@ -17,19 +17,19 @@ class UserProductItem extends StatelessWidget {
           context: context,
           builder: (ctx) {
             return AlertDialog(
-              title: const Text("Ishonchingiz komilmi?"),
-              content: const Text("Bu maxsulot o'chmoqda!"),
+              title: const Text("Are you sure?"),
+              content: const Text("This product is shutting down!"),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: const Text("BEKOR QILISH"),
+                  child: const Text("CANCELLATION"),
                 ),
                 ElevatedButton(
                   onPressed: () {
                     removeItem();
                     Navigator.of(context).pop();
                   },
-                  child: const Text("O'CHIRISH"),
+                  child: const Text("DELETE"),
                   style: ElevatedButton.styleFrom(
                       primary: Theme.of(context).errorColor),
                 ),

@@ -16,7 +16,7 @@ class CartScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Sizning Savatchangiz"),
+        title: const Text("Your Shopping Cart"),
       ),
       body: Column(
         children: [
@@ -28,7 +28,7 @@ class CartScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Umumiy:",
+                    "General:",
                     style: Theme.of(context).textTheme.headline6,
                   ),
                   const Spacer(),
@@ -104,7 +104,7 @@ class _OrderButtonState extends State<OrderButton> {
             },
       child: _isLoading
           ? const CircularProgressIndicator()
-          : const Text("BYURTMA QILISH"),
+          : const Text("ORDER"),
     );
   }
 }

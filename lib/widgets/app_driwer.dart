@@ -16,32 +16,32 @@ class AppDriwer extends StatelessWidget {
           AppBar(
             centerTitle: true,
             automaticallyImplyLeading: false,
-            title: const Text("Salom Do'stim"),
+            title: const Text("Hello my friend"),
           ),
           ListTile(
               leading: const Icon(Icons.shop),
-              title: const Text("Magazin"),
+              title: const Text("Store"),
               onTap: () => Navigator.of(context).pushReplacementNamed(
                     HomeScreen.routeName,
                   )),
           const Divider(),
           ListTile(
               leading: const Icon(Icons.payment),
-              title: const Text("Byurtmalar"),
+              title: const Text("Orders"),
               onTap: () => Navigator.of(context).pushReplacementNamed(
                     OrdersScreen.routeName,
                   )),
           const Divider(),
           ListTile(
               leading: const Icon(Icons.settings),
-              title: const Text("Maxsulotlarni boshqarish"),
+              title: const Text("Product management"),
               onTap: () => Navigator.of(context).pushReplacementNamed(
                     ManagerProductScreen.routeName,
                   )),
           const Divider(),
           ListTile(
             leading: const Icon(Icons.exit_to_app),
-            title: const Text("Chiqish"),
+            title: const Text("Exit"),
             onTap: () {
               Navigator.of(context).pop();
               Navigator.of(context).pushReplacementNamed('/');

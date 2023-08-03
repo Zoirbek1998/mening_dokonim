@@ -25,22 +25,22 @@ class Product with ChangeNotifier {
     isFavorites = !isFavorites;
     notifyListeners();
 
-    final url = Uri.parse(
-        'https://home-work-4b668-default-rtdb.firebaseio.com/userFavorites/$userId/$id.json?auth=$token');
-
-    try {
-      final response = await http.put(
-        url,
-        body: jsonEncode(isFavorites),
-      );
-
-      if (response.statusCode >= 400) {
-        isFavorites = oldFavorite;
-        notifyListeners();
-      }
-    } catch (e) {
-      isFavorites = oldFavorite;
-      notifyListeners();
-    }
+    // final url = Uri.parse(
+    //     'https://chat-app-da9ee-default-rtdb.firebaseio.com/userFavorites/$userId/$id.json?auth=$token');
+    //
+    // try {
+    //   final response = await http.put(
+    //     url,
+    //     body: jsonEncode(isFavorites),
+    //   );
+    //
+    //   if (response.statusCode >= 400) {
+    //     isFavorites = oldFavorite;
+    //     notifyListeners();
+    //   }
+    // } catch (e) {
+    //   isFavorites = oldFavorite;
+    //   notifyListeners();
+    // }
   }
 }

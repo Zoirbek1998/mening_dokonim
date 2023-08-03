@@ -59,7 +59,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
         context: context,
         builder: (ctx) {
           return AlertDialog(
-            title: const Text("Rasim URl-ni yuklang"),
+            title: const Text("Upload Image URL"),
             content: Form(
               key: _formImage,
               child: TextFormField(
@@ -70,9 +70,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "Iltimos, rasim URl kiriting.";
+                    return "Please enter image URL.";
                   } else if (!value.startsWith("http")) {
-                    return "Iltimos, to'g'ti rasim URl ni kiriting.";
+                    return "Please enter the correct image URL.";
                   }
                   return null;
                 },
@@ -90,11 +90,11 @@ class _EditProductScreenState extends State<EditProductScreen> {
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: const Text("BEKOR QILISH"),
+                child: const Text("CANCELLATION"),
               ),
               ElevatedButton(
                 onPressed: _saveImageForm,
-                child: const Text("SAQLASH "),
+                child: const Text("SAVE "),
               ),
             ],
           );
@@ -135,9 +135,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
               context: context,
               builder: (ctx) {
                 return AlertDialog(
-                  title: const Text("Xatolik!"),
+                  title: const Text("Error!"),
                   content:
-                      const Text("Mahsulot q'shishda xatolik sodir bo'ldi"),
+                      const Text("There was an error adding a product"),
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.of(ctx).pop(),
@@ -156,9 +156,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
               context: context,
               builder: (ctx) {
                 return AlertDialog(
-                  title: const Text("Xatolik!"),
+                  title: const Text("Error!"),
                   content: const Text(
-                      "Mahsulot o'zgartirishda xatolik sodir bo'ldi"),
+                      "An error occurred while changing the product"),
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.of(ctx).pop(),
@@ -181,7 +181,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Mahsulot Qo'shish"),
+        title: const Text("Add Product"),
         actions: [
           IconButton(onPressed: _saveForm, icon: const Icon(Icons.save))
         ],
@@ -201,7 +201,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         TextFormField(
                           initialValue: _product.title,
                           decoration: const InputDecoration(
-                            labelText: "Nomi",
+                            labelText: "Name",
                             border: OutlineInputBorder(),
                           ),
                           onSaved: (newValue) {
@@ -214,7 +214,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                           },
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return "Iltimos, mahsulot nomini kiriting.";
+                              return "Please enter a product name.";
                             }
                             return null;
                           },
@@ -229,17 +229,17 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         TextFormField(
                           initialValue: _product.price.toStringAsFixed(2),
                           decoration: const InputDecoration(
-                            labelText: "Narxi",
+                            labelText: "Cost",
                             border: OutlineInputBorder(),
                           ),
                           keyboardType: TextInputType.number,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return "Iltimos, mahsulot nomini kiriting.";
+                              return "Please enter a product name.";
                             } else if (double.tryParse(value) == null) {
-                              return "Iltimos to'g'ri narx kiriting";
+                              return "Please enter a valid price";
                             } else if (double.parse(value) < 0) {
-                              return "Maxsulot narxi 0 dan katta bo'lishi kerak";
+                              return "Product price must be greater than 0";
                             }
                             return null;
                           },
@@ -258,16 +258,16 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         TextFormField(
                           initialValue: _product.description,
                           decoration: const InputDecoration(
-                            labelText: "Qo'shimcha ma'lumot",
+                            labelText: "Additional Information",
                             border: OutlineInputBorder(),
                             alignLabelWithHint: true,
                           ),
                           maxLines: 5,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return "Iltimos, mahsulot tarifini kiriting.";
+                              return "Please enter the product price.";
                             } else if (value.length < 10) {
-                              return "Iltimos batafsil ma'lumot kiriting";
+                              return "Please enter details";
                             }
                             return null;
                           },
@@ -305,7 +305,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                               alignment: Alignment.center,
                               child: _product.imageUrl.isEmpty
                                   ? Text(
-                                      "Asosiy rasim URl-ni firiting!",
+                                      "Copy the main image URL!",
                                       style: TextStyle(
                                           color: _hasImage
                                               ? Colors.black

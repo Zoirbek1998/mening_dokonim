@@ -29,7 +29,7 @@ class _AuthScreenState extends State<AuthScreen> {
         context: context,
         builder: (ctx) {
           return AlertDialog(
-            title: const Text("Xatolik."),
+            title: const Text("Error."),
             content: Text(message),
             actions: [
               TextButton(
@@ -63,23 +63,23 @@ class _AuthScreenState extends State<AuthScreen> {
           );
         }
       } on HttpException catch (error) {
-        var errorMessage = "Xatolik sodir bo'ldi";
+        var errorMessage = "An error occurred";
 
         if (error.message.contains("EMAIL_EXISTS")) {
           errorMessage = "Email band.";
         } else if (error.message.contains('INVALID_EMAIL')) {
-          errorMessage = "To'g'ri email kiriting";
+          errorMessage = "Please enter a valid email";
         } else if (error.message.contains('WEAK_PASSWORD')) {
-          errorMessage = "Juda osson parol. ";
+          errorMessage = "Very easy password. ";
         } else if (error.message.contains('EMAIL_NOT_FOUND')) {
-          errorMessage = "Bu Email bilan foydalanuvchi topilmadi";
+          errorMessage = "No user found with this email";
         } else if (error.message.contains("INVALID_PASSWORD")) {
-          errorMessage = "Paro'l nato'g'ri";
+          errorMessage = "The password is incorrect";
         }
         _showErrorDialog(errorMessage);
       } catch (e) {
         var errorMessage =
-            "Kechirasiz hatolik sodir bo'ldi. Qaytadan urinib ko'ring";
+            "Sorry, an error has occurred. Please try again";
         _showErrorDialog(errorMessage);
       }
 
@@ -117,13 +117,13 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
                 TextFormField(
                   decoration: const InputDecoration(
-                    labelText: "Email manzil",
+                    labelText: "Email address",
                   ),
                   validator: (email) {
                     if (email == null || email.isEmpty) {
-                      return "Iltimos, email manzil kiriting";
+                      return "Please enter an email address";
                     } else if (!email.contains('@')) {
-                      return "Iltimos, to'g'rim email kiriting";
+                      return "Please enter a valid email";
                     }
                   },
                   onSaved: (email) {
@@ -141,9 +141,9 @@ class _AuthScreenState extends State<AuthScreen> {
                   controller: _passwordController,
                   validator: (password) {
                     if (password == null || password.isEmpty) {
-                      return "Iltimos, parolni kiriting";
+                      return "Please enter a password";
                     } else if (password.length < 6) {
-                      return 'Parol judaham osson';
+                      return 'The password is very easy';
                     }
                   },
                   onSaved: (password) {
@@ -158,12 +158,12 @@ class _AuthScreenState extends State<AuthScreen> {
                       ),
                       TextFormField(
                         decoration: const InputDecoration(
-                          labelText: "Parolni tasdiqlang",
+                          labelText: "Confirm Password",
                         ),
                         obscureText: true,
                         validator: (confirmPassword) {
                           if (_passwordController.text != confirmPassword) {
-                            return 'Parollar bir biriga mos kelmadi';
+                            return 'The passwords did not match';
                           }
                         },
                       ),
@@ -177,8 +177,8 @@ class _AuthScreenState extends State<AuthScreen> {
                     : ElevatedButton(
                         onPressed: _submit,
                         child: Text(_authMode == AuthMode.Login
-                            ? 'KIRISH'
-                            : 'RO\'YHATDAN O\'TISH'),
+                            ? 'ENTER'
+                            : 'REGISTRATION'),
                         style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(vertical: 17),
                             minimumSize: const Size(double.infinity, 50)),
@@ -190,8 +190,8 @@ class _AuthScreenState extends State<AuthScreen> {
                   onPressed: _switchAuthMode,
                   child: Text(
                     _authMode == AuthMode.Login
-                        ? 'Ro\'yhatdan o\'tish'
-                        : "Kirish",
+                        ? 'Registration'
+                        : "Enter",
                     style: TextStyle(
                         color: Colors.grey.shade600,
                         decoration: TextDecoration.underline),

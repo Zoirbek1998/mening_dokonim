@@ -22,7 +22,7 @@ class Orders with ChangeNotifier {
 
   Future<void> getOrdersFromFirebase() async {
     final url = Uri.parse(
-        'https://home-work-4b668-default-rtdb.firebaseio.com/orders/$_userId.json?auth=$_authToken');
+        'https://chat-app-da9ee-default-rtdb.firebaseio.com/orders/$_userId.json?auth=$_authToken');
 
     try {
       final response = await http.get(url);
@@ -63,7 +63,7 @@ class Orders with ChangeNotifier {
 
   Future<void> addToOrders(List<CartItem> products, double totalPrice) async {
     final url = Uri.parse(
-        'https://home-work-4b668-default-rtdb.firebaseio.com/orders/$_userId.json?auth=$_authToken');
+        'https://chat-app-da9ee-default-rtdb.firebaseio.com/orders/$_userId.json?auth=$_authToken');
 
     try {
       final response = await http.post(

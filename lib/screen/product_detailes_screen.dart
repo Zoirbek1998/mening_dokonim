@@ -25,12 +25,15 @@ class ProductDetailesScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              width: double.infinity,
-              height: 300,
-              child: Image.network(
-                products.imageUrl,
-                fit: BoxFit.cover,
+            ClipRRect(
+              borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
+              child: SizedBox(
+                width: double.infinity,
+                height: 300,
+                child: Image.network(
+                  products.imageUrl,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             const SizedBox(
@@ -55,7 +58,7 @@ class ProductDetailesScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "Narxi: ",
+                  "Price: ",
                   style: TextStyle(fontSize: 16, color: Colors.black54),
                 ),
                 Text(
@@ -80,7 +83,7 @@ class ProductDetailesScreen extends StatelessWidget {
                       color: Colors.black,
                     ),
                     label: const Text(
-                      "Savatchaga Borish",
+                      "Go to shopping cart",
                       style: TextStyle(color: Colors.black),
                     ),
                     style: ElevatedButton.styleFrom(
@@ -97,7 +100,7 @@ class ProductDetailesScreen extends StatelessWidget {
                   return ElevatedButton(
                     onPressed: () => cart.addToCart(productId, products.title,
                         products.imageUrl, products.price),
-                    child: const Text("Savatchaga qo'shish"),
+                    child: const Text("Add to Cart"),
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 25, vertical: 12),
