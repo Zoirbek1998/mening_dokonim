@@ -8,6 +8,31 @@ import 'package:provider/provider.dart';
 class AppDriwer extends StatelessWidget {
   const AppDriwer({Key? key}) : super(key: key);
 
+  void _showErrorDialog(String message, BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (ctx) {
+          return AlertDialog(
+            title: const Text("Delete Account"),
+            content: Text(message),
+            actions: [
+              TextButton(
+                onPressed: () =>Navigator.of(context).pop(),
+                child: const Text("No"),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pushReplacementNamed('/');
+                  Provider.of<Auth>(context, listen: false).logout();
+                },
+                child: const Text("Okay"),
+              ),
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -43,9 +68,9 @@ class AppDriwer extends StatelessWidget {
             leading: const Icon(Icons.exit_to_app),
             title: const Text("Exit"),
             onTap: () {
-              Navigator.of(context).pop();
-              Navigator.of(context).pushReplacementNamed('/');
-              Provider.of<Auth>(context, listen: false).logout();
+              _showErrorDialog(
+                  "Dear customer, do you really want to delete your account?",
+                  context);
             },
           ),
         ],

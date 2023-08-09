@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import './screen/product_detailes_screen.dart';
 import './styles/my_shop_styles.dart';
 import './screen/home_screen.dart';

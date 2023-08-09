@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../services/http_exeption.dart';
 
 class Auth with ChangeNotifier {
@@ -28,6 +30,7 @@ class Auth with ChangeNotifier {
       // token mavjud
       return _token;
     }
+
     // token mavjud emas
     return null;
   }
@@ -48,13 +51,11 @@ class Auth with ChangeNotifier {
           },
         ),
       );
-
       final data = jsonDecode(response.body);
       if (data['error'] != null) {
-        throw HttpException(
-          data['error']['message'],
-        );
+        throw HttpException(data['error']['message']);
       }
+
       _token = data['idToken'];
       _expiryDate = DateTime.now().add(
         Duration(
@@ -68,8 +69,7 @@ class Auth with ChangeNotifier {
       notifyListeners();
 
       final prefs = await SharedPreferences
-          .getInstance(); // dastur va qurilma hotirasiga tunel
-
+          .getInstance(); // dastur va qurilmaning xotirasiga tunel
       final userData = jsonEncode(
         {
           'token': _token,
@@ -77,31 +77,31 @@ class Auth with ChangeNotifier {
           'expiryDate': _expiryDate!.toIso8601String(),
         },
       );
-      prefs.setString("userData", userData);
+      prefs.setString('userData', userData);
     } catch (error) {
       rethrow;
     }
   }
 
   Future<void> signup(String email, String password) async {
-    return _authenticate(email, password, "signUp");
+    return _authenticate(email, password, 'signUp');
   }
 
   Future<void> login(String email, String password) async {
-    return _authenticate(email, password, "signInWithPassword");
+    return _authenticate(email, password, 'signInWithPassword');
   }
 
   Future<bool> autoLogin() async {
     final prefs = await SharedPreferences.getInstance();
-
     if (!prefs.containsKey('userData')) {
       return false;
     }
     final userData =
-        jsonDecode(prefs.getString('userData')!) as Map<String, dynamic>;
+    jsonDecode(prefs.getString('userData')!) as Map<String, dynamic>;
 
-    final expiryDate = DateTime(userData['expiryDate']);
+    final expiryDate = DateTime.parse(userData['expiryDate']);
 
+    // expiryDate = 10:00 - Hozir vaqt 10:30
     if (expiryDate.isBefore(DateTime.now())) {
       // token muddati tugagan.
       return false;
@@ -118,6 +118,24 @@ class Auth with ChangeNotifier {
   }
 
   void logout() async {
+
+    final url = Uri.parse(
+        'https://identitytoolkit.googleapis.com/v1/accounts:delete?key=$apiKey');
+
+    final response = await http.post(
+      url,
+      body: jsonEncode(
+        {
+          'idToken': _token,
+        },
+      ),
+    );
+
+    print(response.body);
+
+
+
+
     _token = null;
     _userId = null;
     _expiryDate = null;
@@ -135,7 +153,6 @@ class Auth with ChangeNotifier {
     if (_autoLogoutTimer != null) {
       _autoLogoutTimer!.cancel();
     }
-
     final timeToExpiry = _expiryDate!.difference(DateTime.now()).inSeconds;
     _autoLogoutTimer = Timer(Duration(seconds: timeToExpiry), logout);
   }
